@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/denispeplin/jekyll_interface.svg?branch=master)](https://travis-ci.org/denispeplin/jekyll_interface)
+
 # JekyllInterface
 
 To start your Phoenix app:
