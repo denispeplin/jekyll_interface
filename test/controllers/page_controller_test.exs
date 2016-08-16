@@ -3,6 +3,6 @@ defmodule JekyllInterface.PageControllerTest do
 
   test "GET /", %{conn: conn} do
     conn = get conn, "/"
-    assert html_response(conn, 200) =~ "<input type=\"file\" webkitdirectory directory multiple/>"
+    assert redirected_to(conn) == post_path(conn, :index)
   end
 end

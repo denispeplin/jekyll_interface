@@ -17,6 +17,9 @@ defmodule JekyllInterface.Router do
     pipe_through :browser # Use the default browser stack
 
     get "/", PageController, :index
+
+    resources "/sites", SiteController
+    resources "/posts", PostController
   end
 
   # Other scopes may use custom stacks.

@@ -1,0 +1,18 @@
+<h2>Show post</h2>
+
+<ul>
+
+  <li>
+    <strong>Site:</strong>
+    <%= @post.site_id %>
+  </li>
+
+  <li>
+    <strong>Filename:</strong>
+    <%= @post.filename %>
+  </li>
+
+</ul>
+
+<%= link "Edit", to: post_path(@conn, :edit, @post) %>
+<%= link "Back", to: post_path(@conn, :index) %>
