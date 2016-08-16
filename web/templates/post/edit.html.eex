@@ -1,6 +1,6 @@
 <h2>Edit post</h2>
 
 <%= render "form.html", changeset: @changeset,
-                        action: post_path(@conn, :update, @post) %>
+                        action: site_post_path(@conn, :update, @site, @post) %>
 
-<%= link "Back", to: post_path(@conn, :index) %>
+<%= link "Back", to: site_post_path(@conn, :index, @site) %>

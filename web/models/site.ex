@@ -3,6 +3,7 @@ defmodule JekyllInterface.Site do
 
   schema "sites" do
     field :fullpath, :string
+    has_many :posts, JekyllInterface.Post
 
     timestamps()
   end

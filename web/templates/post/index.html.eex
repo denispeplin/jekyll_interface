@@ -16,13 +16,13 @@
       <td><%= post.filename %></td>
 
       <td class="text-right">
-        <%= link "Show", to: post_path(@conn, :show, post), class: "btn btn-default btn-xs" %>
-        <%= link "Edit", to: post_path(@conn, :edit, post), class: "btn btn-default btn-xs" %>
-        <%= link "Delete", to: post_path(@conn, :delete, post), method: :delete, data: [confirm: "Are you sure?"], class: "btn btn-danger btn-xs" %>
+        <%= link "Show", to: site_post_path(@conn, :show, @site, post), class: "btn btn-default btn-xs" %>
+        <%= link "Edit", to: site_post_path(@conn, :edit, @site, post), class: "btn btn-default btn-xs" %>
+        <%= link "Delete", to: site_post_path(@conn, :delete, @site, post), method: :delete, data: [confirm: "Are you sure?"], class: "btn btn-danger btn-xs" %>
       </td>
     </tr>
 <% end %>
   </tbody>
 </table>
 
-<%= link "New post", to: post_path(@conn, :new) %>
+<%= link "New post", to: site_post_path(@conn, :new, @site) %>

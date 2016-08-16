@@ -18,8 +18,9 @@ defmodule JekyllInterface.Router do
 
     get "/", PageController, :index
 
-    resources "/sites", SiteController
-    resources "/posts", PostController
+    resources "/sites", SiteController do
+      resources "/posts", PostController
+    end
   end
 
   # Other scopes may use custom stacks.

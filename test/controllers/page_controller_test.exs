@@ -3,6 +3,6 @@ defmodule JekyllInterface.PageControllerTest do
 
   test "GET /", %{conn: conn} do
     conn = get conn, "/"
-    assert redirected_to(conn) == post_path(conn, :index)
+    assert redirected_to(conn) == site_path(conn, :index)
   end
 end
