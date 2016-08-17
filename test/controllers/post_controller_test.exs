@@ -1,24 +1,20 @@
 defmodule JekyllInterface.PostControllerTest do
   use JekyllInterface.ConnCase
 
-  alias JekyllInterface.Site
   alias JekyllInterface.Post
   @valid_attrs %{filename: "some content"}
-  @invalid_attrs %{}
-
-  defp create_site! do
-    Site.changeset(%Site{}, %{fullpath: "new_path"})
-    |> Repo.insert!
-  end
+  @invalid_attrs %{filename: ""}
 
   setup do
-    site = create_site!
+    site = insert(:site)
     {:ok, conn: build_conn, site: site}
   end
 
   test "lists all entries on index", %{conn: conn, site: site} do
+    post = insert(:post)
     conn = get conn, site_post_path(conn, :index, site)
     assert html_response(conn, 200) =~ "Listing posts"
+    assert html_response(conn, 200) =~ post.filename
   end
 
   test "renders form for new resources", %{conn: conn, site: site} do
@@ -38,9 +34,10 @@ defmodule JekyllInterface.PostControllerTest do
   end
 
   test "shows chosen resource", %{conn: conn, site: site} do
-    post = Repo.insert! %Post{}
+    post = insert(:post)
     conn = get conn, site_post_path(conn, :show, site, post)
     assert html_response(conn, 200) =~ "Show post"
+    assert html_response(conn, 200) =~ post.filename
   end
 
   test "renders page not found when id is nonexistent", %{conn: conn, site: site} do
@@ -50,26 +47,27 @@ defmodule JekyllInterface.PostControllerTest do
   end
 
   test "renders form for editing chosen resource", %{conn: conn, site: site} do
-    post = Repo.insert! %Post{}
+    post = insert(:post)
     conn = get conn, site_post_path(conn, :edit, site, post)
     assert html_response(conn, 200) =~ "Edit post"
+    assert html_response(conn, 200) =~ post.filename
   end
 
   test "updates chosen resource and redirects when data is valid", %{conn: conn, site: site} do
-    post = Repo.insert! %Post{}
+    post = insert(:post)
     conn = put conn, site_post_path(conn, :update, site, post), post: @valid_attrs
     assert redirected_to(conn) == site_post_path(conn, :show, site, post)
     assert Repo.get_by(Post, @valid_attrs)
   end
 
   test "does not update chosen resource and renders errors when data is invalid", %{conn: conn, site: site} do
-    post = Repo.insert! %Post{}
+    post = insert(:post)
     conn = put conn, site_post_path(conn, :update, site, post), post: @invalid_attrs
     assert html_response(conn, 200) =~ "Edit post"
   end
 
   test "deletes chosen resource", %{conn: conn, site: site} do
-    post = Repo.insert! %Post{}
+    post = insert(:post)
     conn = delete conn, site_post_path(conn, :delete, site, post)
     assert redirected_to(conn) == site_post_path(conn, :index, site)
     refute Repo.get(Post, post.id)

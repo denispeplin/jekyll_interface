@@ -3,11 +3,13 @@ defmodule JekyllInterface.SiteControllerTest do
 
   alias JekyllInterface.Site
   @valid_attrs %{fullpath: "some content"}
-  @invalid_attrs %{}
+  @invalid_attrs %{fullpath: ""}
 
   test "lists all entries on index", %{conn: conn} do
+    site = insert(:site)
     conn = get conn, site_path(conn, :index)
     assert html_response(conn, 200) =~ "Listing sites"
+    assert html_response(conn, 200) =~ site.fullpath
   end
 
   test "renders form for new resources", %{conn: conn} do
@@ -27,9 +29,10 @@ defmodule JekyllInterface.SiteControllerTest do
   end
 
   test "shows chosen resource", %{conn: conn} do
-    site = Repo.insert! %Site{}
+    site = insert(:site)
     conn = get conn, site_path(conn, :show, site)
     assert html_response(conn, 200) =~ "Show site"
+    assert html_response(conn, 200) =~ site.fullpath
   end
 
   test "renders page not found when id is nonexistent", %{conn: conn} do
@@ -39,26 +42,27 @@ defmodule JekyllInterface.SiteControllerTest do
   end
 
   test "renders form for editing chosen resource", %{conn: conn} do
-    site = Repo.insert! %Site{}
+    site = insert(:site)
     conn = get conn, site_path(conn, :edit, site)
     assert html_response(conn, 200) =~ "Edit site"
+    assert html_response(conn, 200) =~ site.fullpath
   end
 
   test "updates chosen resource and redirects when data is valid", %{conn: conn} do
-    site = Repo.insert! %Site{}
+    site = insert(:site)
     conn = put conn, site_path(conn, :update, site), site: @valid_attrs
     assert redirected_to(conn) == site_path(conn, :show, site)
     assert Repo.get_by(Site, @valid_attrs)
   end
 
   test "does not update chosen resource and renders errors when data is invalid", %{conn: conn} do
-    site = Repo.insert! %Site{}
+    site = insert(:site)
     conn = put conn, site_path(conn, :update, site), site: @invalid_attrs
     assert html_response(conn, 200) =~ "Edit site"
   end
 
   test "deletes chosen resource", %{conn: conn} do
-    site = Repo.insert! %Site{}
+    site = insert(:site)
     conn = delete conn, site_path(conn, :delete, site)
     assert redirected_to(conn) == site_path(conn, :index)
     refute Repo.get(Site, site.id)

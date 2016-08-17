@@ -25,6 +25,8 @@ defmodule JekyllInterface.ConnCase do
       import Ecto.Changeset
       import Ecto.Query
 
+      import JekyllInterface.Factory
+
       import JekyllInterface.Router.Helpers
 
       # The default endpoint for testing
