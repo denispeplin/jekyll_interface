@@ -7,6 +7,11 @@
     <%= @site.fullpath %>
   </li>
 
+  <li>
+    <strong>Posts:</strong>
+    <%= @info |> inspect %>
+  </li>
+
 </ul>
 
 <%= link "Edit", to: site_path(@conn, :edit, @site) %>

@@ -19,7 +19,7 @@ defmodule JekyllInterface.Mixfile do
   def application do
     [mod: {JekyllInterface, []},
      applications: [:phoenix, :phoenix_pubsub, :phoenix_html, :cowboy, :logger, :gettext,
-                    :phoenix_ecto, :postgrex, :ex_machina]]
+                    :phoenix_ecto, :postgrex, :ex_machina, :jekyll_editor]]
   end
 
   # Specifies which paths to compile per environment.
@@ -36,9 +36,11 @@ defmodule JekyllInterface.Mixfile do
      {:postgrex, ">= 0.0.0"},
      {:phoenix_html, "~> 2.6"},
      {:phoenix_live_reload, "~> 1.0", only: :dev},
-     {:ex_machina, "~> 1.0", only: :test},
+     {:ex_machina, "~> 1.0"},
      {:gettext, "~> 0.11"},
-     {:cowboy, "~> 1.0"}]
+     {:cowboy, "~> 1.0"},
+     {:jekyll_editor, git: "https://github.com/denispeplin/jekyll_editor.git"}]
+     #{:jekyll_editor, path: "../jekyll_editor"}]
   end
 
   # Aliases are shortcuts or tasks specific to the current project.
