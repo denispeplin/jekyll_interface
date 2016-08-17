@@ -28,8 +28,12 @@ defmodule JekyllInterface.SiteController do
 
   def show(conn, %{"id" => id}) do
     site = Repo.get!(Site, id)
-    info = JekyllEditor.index(site.fullpath)
-    render(conn, "show.html", site: site, info: info)
+    case JekyllEditor.index(site.fullpath) do
+      {:ok, filenames} ->
+        render(conn, "show.html", site: site, filenames: filenames)
+      {:error, message} ->
+        render(conn, "show.html", site: site, error: message)
+      end
   end
 
   def edit(conn, %{"id" => id}) do

@@ -7,10 +7,17 @@
     <%= @site.fullpath %>
   </li>
 
+<%= if assigns[:filenames] do %>
   <li>
-    <strong>Posts:</strong>
-    <%= @info |> inspect %>
+    <strong>Jekyll files:</strong>
+    <%= @filenames |> inspect %>
   </li>
+<% else %>
+  <li>
+    <strong>Jekyll error:</strong>
+    <%= @error %>
+  </li>
+<% end %>
 
 </ul>
 

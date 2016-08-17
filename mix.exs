@@ -36,9 +36,10 @@ defmodule JekyllInterface.Mixfile do
      {:postgrex, ">= 0.0.0"},
      {:phoenix_html, "~> 2.6"},
      {:phoenix_live_reload, "~> 1.0", only: :dev},
-     {:ex_machina, "~> 1.0"},
      {:gettext, "~> 0.11"},
      {:cowboy, "~> 1.0"},
+     {:ex_machina, "~> 1.0"},
+     {:mock, "~> 0.1.1", only: :test},
      {:jekyll_editor, git: "https://github.com/denispeplin/jekyll_editor.git"}]
      #{:jekyll_editor, path: "../jekyll_editor"}]
   end

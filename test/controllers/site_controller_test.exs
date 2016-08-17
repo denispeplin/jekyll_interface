@@ -1,5 +1,6 @@
 defmodule JekyllInterface.SiteControllerTest do
   use JekyllInterface.ConnCase
+  import Mock
 
   alias JekyllInterface.Site
   @valid_attrs %{fullpath: "some content"}
@@ -28,11 +29,26 @@ defmodule JekyllInterface.SiteControllerTest do
     assert html_response(conn, 200) =~ "New site"
   end
 
-  test "shows chosen resource", %{conn: conn} do
+  test "shows chosen resource and Jekyll filenames", %{conn: conn} do
     site = insert(:site)
-    conn = get conn, site_path(conn, :show, site)
-    assert html_response(conn, 200) =~ "Show site"
-    assert html_response(conn, 200) =~ site.fullpath
+    with_mock JekyllEditor, [index: fn(_fullpath) -> {:ok, ["1.md"]} end] do
+      conn = get conn, site_path(conn, :show, site)
+      assert called JekyllEditor.index(site.fullpath)
+      assert html_response(conn, 200) =~ "Show site"
+      assert html_response(conn, 200) =~ site.fullpath
+      assert html_response(conn, 200) =~ "1.md"
+    end
+  end
+
+  test "shows chosen and error for Jekyll if directory is wrong", %{conn: conn} do
+    site = insert(:site)
+    with_mock JekyllEditor, [index: fn(_fullpath) -> {:error, :enoent} end] do
+      conn = get conn, site_path(conn, :show, site)
+      assert called JekyllEditor.index(site.fullpath)
+      assert html_response(conn, 200) =~ "Show site"
+      assert html_response(conn, 200) =~ site.fullpath
+      assert html_response(conn, 200) =~ "enoent"
+    end
   end
 
   test "renders page not found when id is nonexistent", %{conn: conn} do
