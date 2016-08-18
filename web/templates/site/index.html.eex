@@ -6,12 +6,16 @@
       <th>Fullpath</th>
 
       <th></th>
+
+      <th></th>
     </tr>
   </thead>
   <tbody>
 <%= for site <- @sites do %>
     <tr>
       <td><%= site.fullpath %></td>
+
+      <td><%= link "Posts", to: site_post_path(@conn, :index, site) %>
 
       <td class="text-right">
         <%= link "Show", to: site_path(@conn, :show, site), class: "btn btn-default btn-xs" %>

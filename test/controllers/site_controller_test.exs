@@ -11,6 +11,7 @@ defmodule JekyllInterface.SiteControllerTest do
     conn = get conn, site_path(conn, :index)
     assert html_response(conn, 200) =~ "Listing sites"
     assert html_response(conn, 200) =~ site.fullpath
+    assert html_response(conn, 200) =~ site_post_path(conn, :index, site)
   end
 
   test "renders form for new resources", %{conn: conn} do
