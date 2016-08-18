@@ -22,8 +22,9 @@ defmodule JekyllInterface.PostControllerTest do
   end
 
   test "renders form for new resources", %{conn: conn, site: site} do
-    conn = get conn, site_post_path(conn, :new, site)
+    conn = get conn, site_post_path(conn, :new, site, filename: "new_name.md")
     assert html_response(conn, 200) =~ "New post"
+    assert html_response(conn, 200) =~ "new_name.md"
   end
 
   test "creates resource and redirects when data is valid", %{conn: conn, site: site} do

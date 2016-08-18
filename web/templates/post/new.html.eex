@@ -1,5 +1,7 @@
 <h2>New post</h2>
 
+<strong>Filename:</strong> <%= filename(@changeset) %>
+
 <%= render "form.html", changeset: @changeset,
                         action: site_post_path(@conn, :create, @site) %>
 

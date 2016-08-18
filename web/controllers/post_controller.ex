@@ -11,8 +11,8 @@ defmodule JekyllInterface.PostController do
     render(conn, "index.html", site: conn.assigns[:site], posts: posts)
   end
 
-  def new(conn, _params) do
-    changeset = Post.changeset(%Post{})
+  def new(conn, %{"filename" => filename}) do
+    changeset = Post.changeset(%Post{}, %{filename: filename})
     render(conn, "new.html", site: conn.assigns[:site], changeset: changeset)
   end
 
