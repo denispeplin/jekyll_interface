@@ -12,7 +12,8 @@ defmodule JekyllInterface.PostController do
   end
 
   def new(conn, %{"filename" => filename}) do
-    changeset = Post.changeset(%Post{}, %{filename: filename})
+    {:ok, content} = JekyllEditor.show(conn.assigns[:site].fullpath, filename)
+    changeset = Post.changeset(%Post{}, %{filename: filename, content: content})
     render(conn, "new.html", site: conn.assigns[:site], changeset: changeset)
   end
 
