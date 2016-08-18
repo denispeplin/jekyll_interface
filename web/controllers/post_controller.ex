@@ -7,7 +7,7 @@ defmodule JekyllInterface.PostController do
   plug :assign_site
 
   def index(conn, _params) do
-    posts = Repo.all(Post)
+    {:ok, posts} = JekyllEditor.index(conn.assigns[:site].fullpath)
     render(conn, "index.html", site: conn.assigns[:site], posts: posts)
   end
 

@@ -1,6 +1,8 @@
 defmodule JekyllInterface.PostControllerTest do
   use JekyllInterface.ConnCase
 
+  import Mock
+
   alias JekyllInterface.Post
   @valid_attrs %{filename: "some content"}
   @invalid_attrs %{filename: ""}
@@ -11,10 +13,12 @@ defmodule JekyllInterface.PostControllerTest do
   end
 
   test "lists all entries on index", %{conn: conn, site: site} do
-    post = insert(:post)
-    conn = get conn, site_post_path(conn, :index, site)
-    assert html_response(conn, 200) =~ "Listing posts"
-    assert html_response(conn, 200) =~ post.filename
+    with_mock JekyllEditor, [index: fn(_fullpath) -> {:ok, ["file.md"]} end] do
+      conn = get conn, site_post_path(conn, :index, site)
+      assert called JekyllEditor.index(site.fullpath)
+      assert html_response(conn, 200) =~ "Listing posts"
+      assert html_response(conn, 200) =~ "file.md"
+    end
   end
 
   test "renders form for new resources", %{conn: conn, site: site} do

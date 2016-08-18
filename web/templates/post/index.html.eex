@@ -3,7 +3,6 @@
 <table class="table">
   <thead>
     <tr>
-      <th>Site</th>
       <th>Filename</th>
 
       <th></th>
@@ -12,13 +11,10 @@
   <tbody>
 <%= for post <- @posts do %>
     <tr>
-      <td><%= post.site_id %></td>
-      <td><%= post.filename %></td>
+      <td><%= post %></td>
 
       <td class="text-right">
-        <%= link "Show", to: site_post_path(@conn, :show, @site, post), class: "btn btn-default btn-xs" %>
-        <%= link "Edit", to: site_post_path(@conn, :edit, @site, post), class: "btn btn-default btn-xs" %>
-        <%= link "Delete", to: site_post_path(@conn, :delete, @site, post), method: :delete, data: [confirm: "Are you sure?"], class: "btn btn-danger btn-xs" %>
+        <%= link "Edit", to: site_post_path(@conn, :new, @site, filename: post), class: "btn btn-default btn-xs" %>
       </td>
     </tr>
 <% end %>
