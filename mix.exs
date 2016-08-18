@@ -19,7 +19,7 @@ defmodule JekyllInterface.Mixfile do
   def application do
     [mod: {JekyllInterface, []},
      applications: [:phoenix, :phoenix_pubsub, :phoenix_html, :cowboy, :logger, :gettext,
-                    :phoenix_ecto, :postgrex, :ex_machina, :jekyll_editor]]
+                    :phoenix_ecto, :postgrex, :jekyll_editor]]
   end
 
   # Specifies which paths to compile per environment.
@@ -38,7 +38,7 @@ defmodule JekyllInterface.Mixfile do
      {:phoenix_live_reload, "~> 1.0", only: :dev},
      {:gettext, "~> 0.11"},
      {:cowboy, "~> 1.0"},
-     {:ex_machina, "~> 1.0"},
+     {:ex_machina, "~> 1.0", only: :test},
      {:mock, "~> 0.1.1", only: :test},
      {:jekyll_editor, git: "https://github.com/denispeplin/jekyll_editor.git"}]
      #{:jekyll_editor, path: "../jekyll_editor"}]
