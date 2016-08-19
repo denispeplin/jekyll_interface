@@ -7,7 +7,7 @@
 
   <div class="form-group">
     <%= label f, :content, class: "control-label" %>
-    <%= textarea f, :content, class: "form-control" %>
+    <%= textarea f, :content, id: "post-content", class: "form-control" %>
     <%= error_tag f, :content %>
   </div>
 

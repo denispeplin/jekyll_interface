@@ -19,3 +19,12 @@ import "phoenix_html"
 // paths "./socket" or full ones "web/static/js/socket".
 
 // import socket from "./socket"
+
+$(document).on('ready', function() {
+  console.log("establishing simplemde");
+  var simplemde = new SimpleMDE({
+    element: $("#post-content")[0],
+    indentWithTabs: false,
+    promptURLs: true
+  });
+});
