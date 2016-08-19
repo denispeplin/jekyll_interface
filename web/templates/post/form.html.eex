@@ -5,6 +5,8 @@
     </div>
   <% end %>
 
+  <%= hidden_input f, :filename, class: "form-control" %>
+
   <div class="form-group">
     <%= label f, :content, class: "control-label" %>
     <%= textarea f, :content, id: "post-content", class: "form-control" %>
