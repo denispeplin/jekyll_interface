@@ -21,8 +21,9 @@ defmodule JekyllInterface.SiteControllerTest do
 
   test "creates resource and redirects when data is valid", %{conn: conn} do
     conn = post conn, site_path(conn, :create), site: @valid_attrs
-    assert redirected_to(conn) == site_path(conn, :index)
-    assert Repo.get_by(Site, @valid_attrs)
+    site = Repo.get_by(Site, @valid_attrs)
+    assert site
+    assert redirected_to(conn) == site_post_path(conn, :index, site)
   end
 
   test "does not create resource and renders errors when data is invalid", %{conn: conn} do

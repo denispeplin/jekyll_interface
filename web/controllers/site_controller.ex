@@ -17,10 +17,10 @@ defmodule JekyllInterface.SiteController do
     changeset = Site.changeset(%Site{}, site_params)
 
     case Repo.insert(changeset) do
-      {:ok, _site} ->
+      {:ok, site} ->
         conn
         |> put_flash(:info, "Site created successfully.")
-        |> redirect(to: site_path(conn, :index))
+        |> redirect(to: site_post_path(conn, :index, site))
       {:error, changeset} ->
         render(conn, "new.html", changeset: changeset)
     end
